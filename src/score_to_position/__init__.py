@@ -49,15 +49,13 @@ FROM {base_table_id}
 ),
 {t_position_table_id} AS (
 SELECT
-    date,
-    instrument,
+    {t_hold_table_id}.* EXCLUDE(position),
     {expr}
 FROM {tables}
 ORDER BY date, position
 )
 SELECT
-    date,
-    instrument,
+    * EXCLUDE(position),
     {position_norm}
 FROM {t_position_table_id}
 QUALIFY
