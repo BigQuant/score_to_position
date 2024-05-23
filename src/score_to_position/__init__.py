@@ -63,6 +63,7 @@ QUALIFY
 ORDER BY date, position
 '''
 
+REMOVE_STRING_RE = re.compile(r"'[^']*'")
 TABLE_NAME_RE = re.compile(r"(?<!\.)\b[a-zA-Z_]\w*\b(?=\.[a-zA-Z_*])")
 
 
@@ -136,7 +137,7 @@ def _build_sql_from_expr(expr: str, hold_count, total_position, score_field, inp
     tables.append(t_hold_table_id)
 
     for line in expr_lines:
-        tables += TABLE_NAME_RE.findall(line)
+        tables += TABLE_NAME_RE.findall(REMOVE_STRING_RE.sub('', line))
     # de-dup and add using primary key
     table_set = set()
     table_list = []
