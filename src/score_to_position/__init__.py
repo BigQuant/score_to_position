@@ -60,7 +60,7 @@ SELECT
 FROM {t_position_table_id}
 QUALIFY
     position IS NOT NULL
-ORDER BY date, position
+ORDER BY date, position, instrument
 '''
 
 REMOVE_STRING_RE = re.compile(r"'[^']*'")
