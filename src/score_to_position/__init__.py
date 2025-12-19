@@ -34,7 +34,7 @@ DEFAULT_POSITION_EXPR = """-- DAI SQL 算子/函数: https://bigquant.com/wiki/d
 -- 排序倒数: 1 / score_rank AS position
 -- 对数下降: 1 / log2(score_rank + 1) AS position
 -- TODO 拟合、最优化 ..
-
+ 
 -- 等权重分配
 1 AS position
 """
@@ -218,9 +218,10 @@ def run(
         "仓位公式，仓位表达式公式，e.g. 1 / rank_score",
         default=DEFAULT_POSITION_EXPR,
         auto_complete_type="sql",
+        optional=False,
     ) = None,
     total_position: I.float("总仓位，总仓位为1 则归一化到1，为0.5 则总仓位scale到0.5，如果为0 则不做归一化") = 1,
-    extract_data: I.bool("抽取数据，是否抽取数据，如果抽取数据，将返回一个BDB DataSource，包含数据DataFrame") = False,
+    extract_data: I.bool("抽取数据，是否抽取数据，如果抽取数据，将返回一个BDB DataSource，包含数据DataFrame") = True,
 ) -> [I.port("输出(SQL文件)", "data")]:
     """输入特征（因子）数据"""
 
